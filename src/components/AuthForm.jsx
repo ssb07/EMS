@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { loginUser, signupUser } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
+  const navigate = useNavigate();
+
   const [isLogin, setIsLogin] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -48,18 +51,12 @@ const AuthForm = () => {
 
     try {
       if (isLogin) {
-        const res = await axios.post(
-          "http://localhost:5000/api/auth/login",
-          { email, password }
-        );
+        const res = await loginUser({ email, password });
 
-        localStorage.setItem("token", res.data.token);
-        alert("Login successful");
+        localStorage.setItem("token", res.token);
+        navigate("/dashboard"); // ✅ proper navigation
       } else {
-        await axios.post(
-          "http://localhost:5000/api/auth/signup",
-          { name, email, password }
-        );
+        await signupUser({ name, email, password });
 
         alert("Signup successful");
         setIsLogin(true);
@@ -76,8 +73,7 @@ const AuthForm = () => {
   return (
     <div className="container">
       <div className="form-container">
-        
-        {/* Toggle */}
+
         <div className="form-toggle">
           <button
             className={isLogin ? "active" : ""}
@@ -93,7 +89,6 @@ const AuthForm = () => {
           </button>
         </div>
 
-        {/* Form */}
         <form className="form" onSubmit={handleSubmit}>
           <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
 
@@ -124,8 +119,6 @@ const AuthForm = () => {
             value={password}
             onChange={handleChange}
           />
-
-          {isLogin && <a href="#">Forgot Password?</a>}
 
           <button type="submit" disabled={loading}>
             {loading

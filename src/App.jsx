@@ -1,15 +1,26 @@
-
-import './App.css'
-import AuthForm from './AuthForm'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthForm from "./components/AuthForm";
+import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
+import "./App.css";
 
 function App() {
-
-
   return (
-    <>
-      <AuthForm />
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthForm />} />
+        
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
