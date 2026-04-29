@@ -22,11 +22,6 @@
 // };
 
 
-
-
-
-// src/api/auth.js
-
 export const loginUser = async ({ email, password }) => {
   await new Promise((res) => setTimeout(res, 500)); // simulate delay
 

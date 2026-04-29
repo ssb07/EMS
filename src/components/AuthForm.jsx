@@ -71,75 +71,97 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="container">
-      <div className="form-container">
+    <div className="flex items-center justify-center min-h-screen bg-[#0C67A0]">
+  <div className="w-full max-w-sm bg-white p-6 rounded-xl shadow-md">
 
-        <div className="form-toggle">
-          <button
-            className={isLogin ? "active" : ""}
-            onClick={() => setIsLogin(true)}
-          >
-            Log In
-          </button>
-          <button
-            className={!isLogin ? "active" : ""}
-            onClick={() => setIsLogin(false)}
-          >
-            Sign Up
-          </button>
-        </div>
+    {/* Toggle */}
+    <div className="flex mb-5">
+      <button
+        className={`w-1/2 py-2 text-sm font-medium rounded-tl-xl ${
+          isLogin ? "bg-[#033452] text-white" : "bg-gray-200"
+        }`}
+        onClick={() => setIsLogin(true)}
+      >
+        Log In
+      </button>
 
-        <form className="form" onSubmit={handleSubmit}>
-          <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
-
-          {error && <p style={{ color: "red" }}>{error}</p>}
-
-          {!isLogin && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={name}
-              onChange={handleChange}
-            />
-          )}
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={handleChange}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={handleChange}
-          />
-
-          <button type="submit" disabled={loading}>
-            {loading
-              ? "Please wait..."
-              : isLogin
-              ? "Log In"
-              : "Sign Up"}
-          </button>
-
-          <p>
-            {isLogin ? "Not a member?" : "Already have an account?"}{" "}
-            <span
-              style={{ color: "blue", cursor: "pointer" }}
-              onClick={() => setIsLogin(!isLogin)}
-            >
-              {isLogin ? "Sign Up" : "Log In"}
-            </span>
-          </p>
-        </form>
-      </div>
+      <button
+        className={`w-1/2 py-2 text-sm font-medium rounded-tr-xl ${
+          !isLogin ? "bg-[#033452] text-white" : "bg-gray-200"
+        }`}
+        onClick={() => setIsLogin(false)}
+      >
+        Sign Up
+      </button>
     </div>
+
+    {/* Form */}
+    <form className="flex flex-col" onSubmit={handleSubmit}>
+      <h2 className="text-xl font-semibold mb-4 text-center">
+        {isLogin ? "Log In" : "Sign Up"}
+      </h2>
+
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
+      {!isLogin && (
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={name}
+          onChange={handleChange}
+          className="p-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#033452]"
+        />
+      )}
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={email}
+        onChange={handleChange}
+        className="p-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#033452]"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={password}
+        onChange={handleChange}
+        className="p-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#033452]"
+      />
+
+      {isLogin && (
+        <a href="#" className="text-sm text-blue-500 text-right mb-2">
+          Forgot Password?
+        </a>
+      )}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="py-2 bg-[#033452] text-white rounded-md hover:opacity-90 transition"
+      >
+        {loading
+          ? "Please wait..."
+          : isLogin
+          ? "Log In"
+          : "Sign Up"}
+      </button>
+
+      <p className="text-center mt-3 text-sm">
+        {isLogin ? "Not a member?" : "Already have an account?"}{" "}
+        <span
+          className="text-blue-500 cursor-pointer"
+          onClick={() => setIsLogin(!isLogin)}
+        >
+          {isLogin ? "Sign Up" : "Log In"}
+        </span>
+      </p>
+    </form>
+  </div>
+</div>
   );
 };
 
